@@ -28,21 +28,17 @@ dataset *Hotel Booking Demand* (119.390 reservas de dos hoteles de Portugal, 201
 
 ### Opción 1: en el computador
 ```bash
-git clone https://github.com/<USUARIO>/<REPOSITORIO>.git
-cd <REPOSITORIO>
+git clone https://github.com/Moraa0711/ModelosII-Proyecto-HotelBooking.git
+cd ModelosII-Proyecto-HotelBooking
 pip install -r requirements.txt
 jupyter notebook notebooks/
 ```
 Ejecutar los notebooks en orden (01, 02, 03), cada uno de principio a fin.
 
 ### Opción 2: en Google Colab
-En una celda nueva:
-```python
-!git clone https://github.com/<USUARIO>/<REPOSITORIO>.git
-%cd <REPOSITORIO>/notebooks
-!pip install -q -r ../requirements.txt
-```
-Luego abrir y ejecutar el notebook deseado.
+Abrir el notebook con el enlace y ejecutar las celdas en orden (la primera celda descarga el repositorio):
+
+- [01 · Descripción y preprocesamiento](https://colab.research.google.com/github/Moraa0711/ModelosII-Proyecto-HotelBooking/blob/main/notebooks/01_descripcion_y_preprocesamiento.ipynb)
 
 ## Decisiones principales de preprocesamiento
 - Se eliminan las 4 columnas sintéticas de Kaggle y las 3 con fuga de información
