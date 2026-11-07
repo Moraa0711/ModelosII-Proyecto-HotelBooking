@@ -1,0 +1,7 @@
+Modelo,Tipo,Hiperparámetros y malla,Combinaciones,Datos de ajuste
+Regresión logística,Paramétrico (regresión),"C ∈ {0.001, 0.01, 0.1, 1, 10, 100}",6,Entrenamiento completo
+KNN,No paramétrico,"n_neighbors ∈ {1, 5, 11, 21, 41, 81}; weights ∈ {uniform, distance}",12,Muestra (15.000)
+Random Forest,Ensamble de árboles (bagging),"max_depth ∈ {5, 10, 20, None}; min_samples_leaf ∈ {1, 5}",8,Entrenamiento completo
+XGBoost,Ensamble de árboles (boosting),"max_depth ∈ {3, 6, 9}; learning_rate ∈ {0.03, 0.1, 0.3}",9,Entrenamiento completo
+Red neuronal (MLP),Red neuronal artificial,"hidden_layer_sizes ∈ {(32,), (64,), (128, 64)}; alpha ∈ {0.0001, 0.01, 1.0}",9,Entrenamiento completo
+SVM (RBF),Máquina de vectores de soporte,"C ∈ {0.1, 1, 10}; gamma ∈ {0.003, 0.03, 0.3}",9,Muestra (15.000)

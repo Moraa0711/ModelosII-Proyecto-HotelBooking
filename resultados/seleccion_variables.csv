@@ -1,0 +1,3 @@
+Modelo,Conjunto,Variables de entrada,F1 valid.,AUC-ROC valid.
+XGBoost,Todas las variables,28,"0,811 ± 0,011","0,938 ± 0,004"
+XGBoost,Sin candidatas,19,"0,790 ± 0,013","0,926 ± 0,005"

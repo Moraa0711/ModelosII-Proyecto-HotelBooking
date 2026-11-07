@@ -1,0 +1,9 @@
+Modelo,Espacio,Datos,Dimensión,Reducción (%),F1 valid.,AUC valid.,F1 prueba,AUC prueba
+XGBoost,Original,Completo,90,0.0,"0,811 ± 0,011","0,938 ± 0,004","0,820","0,943"
+XGBoost,PCA,Completo,25,72.2,"0,785 ± 0,007","0,921 ± 0,004","0,790","0,924"
+XGBoost,Original,Muestra,72,0.0,"0,777 ± 0,009","0,914 ± 0,008","0,782","0,919"
+XGBoost,UMAP,Muestra,10,86.1,"0,632 ± 0,015","0,780 ± 0,018","0,622","0,783"
+Random Forest,Original,Completo,90,0.0,"0,809 ± 0,012","0,936 ± 0,003","0,818","0,941"
+Random Forest,PCA,Completo,25,72.2,"0,777 ± 0,006","0,915 ± 0,005","0,776","0,918"
+Random Forest,Original,Muestra,72,0.0,"0,775 ± 0,017","0,914 ± 0,010","0,787","0,924"
+Random Forest,UMAP,Muestra,20,72.2,"0,633 ± 0,021","0,787 ± 0,018","0,643","0,797"
