@@ -7,7 +7,8 @@ Proyecto del curso **Modelos y Simulación de Sistemas II** – Universidad de A
 Se construye un sistema de aprendizaje supervisado que predice si una reserva de hotel será cancelada, usando el
 dataset *Hotel Booking Demand* (119.390 reservas de dos hoteles de Portugal, 2015–2017).
 
-**Resultado principal:** XGBoost obtuvo un F1 de 0,820 y un AUC-ROC de 0,943 en el conjunto de prueba.
+**Resultado principal:** usando solo la información disponible al momento de reservar, Random Forest y XGBoost
+obtuvieron un F1 de 0,760 y un AUC-ROC de 0,91 en el conjunto de prueba (diferencia entre ellos no significativa).
 El informe completo está en [`reporte/Informe_final_HotelBooking.pdf`](reporte/Informe_final_HotelBooking.pdf).
 
 ## Estructura
@@ -21,6 +22,7 @@ El informe completo está en [`reporte/Informe_final_HotelBooking.pdf`](reporte/
 │   └── 03_reduccion_de_dimension.ipynb           # Sección V: análisis de variables, PCA y UMAP
 ├── src/
 │   ├── preprocesamiento.py        # limpieza y codificación usadas por todos los notebooks
+│   ├── regiones.py                # tabla fija país -> región (continente)
 │   └── evaluacion.py              # partición, validación cruzada, métricas e intervalos de confianza
 ├── figuras/                       # figuras generadas por los notebooks
 ├── resultados/                    # tablas de resultados generadas por los notebooks
@@ -52,13 +54,21 @@ Abrir el notebook con el enlace y ejecutar las celdas en orden (la primera celda
 Los notebooks del repositorio ya están ejecutados: se pueden leer con todos sus resultados sin volver a correrlos.
 
 ## Decisiones principales de preprocesamiento
+- **Horizonte de predicción:** se predice al momento de hacer la reserva. Por eso solo se usan variables que se
+  conocen en ese momento y se quitan `booking_changes`, `required_car_parking_spaces` y `total_of_special_requests`,
+  que el dataset guarda con su valor final (por ejemplo, ninguna reserva con parqueadero fue cancelada).
 - Se eliminan las 4 columnas sintéticas de Kaggle y las 3 con fuga de información
   (`reservation_status`, `reservation_status_date`, `assigned_room_type`).
 - Faltantes: `children` → 0; `country` → "Desconocido"; `agent` y `company` → indicadores binarios.
-- Se eliminan 187 registros inválidos (categoría "Undefined", reservas sin huéspedes y tarifas anómalas).
+- `country` (177 países) se agrupa en 9 regiones: Portugal aparte, continentes, Otros y Desconocido.
+  En el notebook 02 se compara contra el One-Hot de los países y contra no usar el origen.
+- Se eliminan 187 registros inválidos (categoría "Undefined", reservas sin huéspedes, la única tarifa negativa
+  y una tarifa atípica de 5.400).
 - Las filas repetidas (reservas de grupo) se conservan y se mantienen juntas en las particiones
   (`StratifiedGroupKFold`) para evitar que una misma reserva quede en entrenamiento y en prueba.
+  Hay 488 grupos con las mismas entradas y distinta etiqueta, que fijan un error mínimo de 0,68 %.
 - Codificación One-Hot para categóricas y estandarización para numéricas, ajustadas solo con datos de entrenamiento.
+  Quedan 25 variables de entrada y 59 columnas codificadas.
 
 ## Configuración experimental
 - 20 % de las reservas como conjunto de prueba (partición estratificada y agrupada).
@@ -67,3 +77,8 @@ Los notebooks del repositorio ya están ejecutados: se pueden leer con todos sus
 - Modelos: regresión logística, KNN, Random Forest, XGBoost, red neuronal (MLP) y SVM con kernel RBF.
   KNN y SVM se ajustan con una muestra estratificada de ~15.000 reservas por su costo computacional.
 - Métrica principal: F1 de la clase cancelada; también AUC-ROC, sensibilidad, precisión y exactitud.
+
+## Uso de inteligencia artificial
+Se usó el asistente Claude (Anthropic) como apoyo para explicar los requisitos, buscar y resumir artículos, revisar la
+redacción del informe y escribir y depurar el código de los notebooks y de `src/`. Las decisiones fueron tomadas por el
+equipo, que ejecutó los notebooks y verificó los resultados. El detalle está al final del informe.

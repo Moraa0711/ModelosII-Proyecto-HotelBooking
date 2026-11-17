@@ -1,15 +1,15 @@
 {
+  "Random Forest": {
+    "parametros": {
+      "clf__max_depth": 20,
+      "clf__min_samples_leaf": 1
+    },
+    "muestra": false
+  },
   "XGBoost": {
     "parametros": {
       "clf__learning_rate": 0.1,
       "clf__max_depth": 9
-    },
-    "muestra": false
-  },
-  "Random Forest": {
-    "parametros": {
-      "clf__max_depth": null,
-      "clf__min_samples_leaf": 1
     },
     "muestra": false
   }
